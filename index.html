@@ -3,102 +3,88 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>لعبة الشهر واليوم | سؤالك اليوم</title>
+  <title>لعبة الشهر واليوم</title>
+  <meta name="description" content="موقع بسيط واحترافي يطلب منك اختيار الشهر واليوم ثم يعرض سؤال داخل كرت أنيق." />
   <style>
     :root {
-      --bg-1: #f8fafc;
-      --bg-2: #e2e8f0;
-      --bg-3: #cbd5e1;
-      --card: rgba(255, 255, 255, 0.72);
-      --card-solid: #ffffff;
+      --bg0: #f8fafc;
+      --bg1: #e2e8f0;
       --text: #0f172a;
       --muted: #64748b;
       --line: #e2e8f0;
-      --primary: #0f172a;
-      --primary-2: #334155;
-      --shadow: 0 24px 80px rgba(15, 23, 42, 0.12);
-      --radius-xl: 28px;
+      --card: rgba(255,255,255,.72);
+      --dark: #0f172a;
+      --dark2: #1e293b;
+      --shadow: 0 28px 80px rgba(15,23,42,.12);
+      --radius-xl: 30px;
       --radius-lg: 20px;
-      --radius-md: 14px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      min-height: 100%;
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
       font-family: Tahoma, Arial, sans-serif;
       color: var(--text);
-      background:
-        radial-gradient(circle at top, #ffffff 0%, var(--bg-1) 35%, var(--bg-2) 68%, var(--bg-3) 100%);
-    }
-
-    body {
-      min-height: 100vh;
+      background: radial-gradient(circle at top, #ffffff 0%, var(--bg0) 40%, var(--bg1) 100%);
     }
 
     .page {
-      width: min(1180px, calc(100% - 32px));
+      width: min(1180px, calc(100% - 24px));
       margin: 0 auto;
-      padding: 28px 0 42px;
+      padding: 24px 0 34px;
     }
 
     .hero {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1.05fr .95fr;
       gap: 22px;
       align-items: stretch;
     }
 
     .panel {
       background: var(--card);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.65);
-      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.7);
       border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
       overflow: hidden;
     }
 
-    .panel-inner {
-      padding: 28px;
-    }
+    .panel-inner { padding: 28px; }
 
     .brand {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 14px;
       margin-bottom: 18px;
     }
 
     .brand-badge {
-      width: 54px;
-      height: 54px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, var(--primary), #475569);
-      color: #fff;
+      width: 58px;
+      height: 58px;
+      border-radius: 20px;
       display: grid;
       place-items: center;
-      font-size: 24px;
-      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.18);
+      background: linear-gradient(135deg, var(--dark), #475569);
+      color: #fff;
+      box-shadow: 0 16px 28px rgba(15,23,42,.18);
       flex: none;
+      font-size: 24px;
     }
 
     h1 {
       margin: 0;
       font-size: clamp(28px, 4vw, 44px);
       line-height: 1.15;
-      letter-spacing: -0.3px;
+      letter-spacing: -.3px;
     }
 
     .subtitle {
       margin: 10px 0 0;
       color: var(--muted);
-      line-height: 1.8;
+      line-height: 1.9;
       font-size: 15px;
-      max-width: 60ch;
+      max-width: 62ch;
     }
 
     .controls {
@@ -108,66 +94,23 @@
       margin-top: 22px;
     }
 
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    .field { display: flex; flex-direction: column; gap: 8px; }
+    .field label { font-size: 14px; font-weight: 700; color: #334155; }
 
-    .field label {
-      font-size: 14px;
-      font-weight: 700;
-      color: #334155;
-    }
-
-    .input-wrap {
-      position: relative;
-    }
-
-    select, input[type="number"], input[type="checkbox"] {
-      font: inherit;
-    }
-
-    select, input[type="number"] {
+    select {
       width: 100%;
       border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255,255,255,.94);
       color: var(--text);
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 14px 16px;
       outline: none;
-      transition: 0.2s ease;
+      transition: .2s ease;
+      font: inherit;
     }
-
-    select:focus, input[type="number"]:focus {
+    select:focus {
       border-color: #94a3b8;
-      box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.2);
-    }
-
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 16px;
-      align-items: center;
-    }
-
-    .checkbox {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.72);
-      border-radius: 999px;
-      user-select: none;
-      cursor: pointer;
-    }
-
-    .checkbox input {
-      width: 18px;
-      height: 18px;
-      accent-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(148,163,184,.18);
     }
 
     .actions {
@@ -183,28 +126,27 @@
       padding: 13px 18px;
       cursor: pointer;
       font-weight: 700;
-      transition: 0.2s ease;
+      transition: .2s ease;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 9px;
-      min-width: 146px;
+      min-width: 160px;
+      font: inherit;
     }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
 
     .btn-primary {
       color: #fff;
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      box-shadow: 0 14px 26px rgba(15, 23, 42, 0.2);
+      background: linear-gradient(135deg, var(--dark), var(--dark2));
+      box-shadow: 0 14px 28px rgba(15,23,42,.2);
     }
 
     .btn-secondary {
       color: var(--text);
-      background: rgba(255,255,255,.9);
+      background: rgba(255,255,255,.92);
       border: 1px solid var(--line);
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
     }
 
     .hint {
@@ -212,60 +154,64 @@
       color: var(--muted);
       font-size: 13px;
       line-height: 1.8;
-      background: rgba(255,255,255,.58);
+      background: rgba(255,255,255,.55);
       border: 1px dashed rgba(100,116,139,.25);
       border-radius: 18px;
       padding: 14px 16px;
     }
 
     .card-area {
+      min-height: 100%;
+      padding: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100%;
-      padding: 18px;
     }
+
+    .empty-state {
+      width: 100%;
+      min-height: 500px;
+      border-radius: 34px;
+      border: 1px dashed rgba(100,116,139,.34);
+      background: rgba(255,255,255,.54);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: #475569;
+      padding: 30px;
+    }
+    .empty-state strong { display: block; font-size: 22px; color: var(--text); margin-bottom: 10px; }
 
     .result-card {
       width: 100%;
+      min-height: 500px;
       background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
       color: #fff;
       border-radius: 34px;
       padding: 24px;
       position: relative;
-      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.28);
       overflow: hidden;
-      min-height: 500px;
+      box-shadow: 0 22px 60px rgba(15,23,42,.28);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      animation: pop .35s ease;
     }
 
-    .result-card::before {
-      content: "";
-      position: absolute;
-      inset: -80px auto auto -80px;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-      filter: blur(4px);
-    }
-
+    .result-card::before,
     .result-card::after {
       content: "";
       position: absolute;
-      inset: auto -60px -60px auto;
-      width: 220px;
-      height: 220px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.06);
-      filter: blur(4px);
+      background: rgba(255,255,255,.08);
+      pointer-events: none;
     }
+    .result-card::before { inset: -70px auto auto -70px; width: 210px; height: 210px; }
+    .result-card::after { inset: auto -60px -60px auto; width: 220px; height: 220px; }
 
-    .result-top, .result-bottom {
-      position: relative;
-      z-index: 1;
+    @keyframes pop {
+      from { opacity: 0; transform: translateY(10px) scale(.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .chip-row {
@@ -273,6 +219,8 @@
       flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
     }
 
     .chip {
@@ -281,18 +229,19 @@
       gap: 8px;
       padding: 9px 14px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.12);
       font-size: 13px;
       color: #e2e8f0;
     }
 
     .question-title {
       margin: 0;
-      font-size: clamp(25px, 3vw, 38px);
+      font-size: clamp(24px, 3.2vw, 38px);
       line-height: 1.6;
       font-weight: 800;
-      letter-spacing: -0.2px;
+      position: relative;
+      z-index: 1;
     }
 
     .question-text {
@@ -300,6 +249,9 @@
       font-size: 18px;
       line-height: 1.95;
       color: #e2e8f0;
+      min-height: 110px;
+      position: relative;
+      z-index: 1;
     }
 
     .meta-grid {
@@ -307,107 +259,60 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
       margin-top: 20px;
+      position: relative;
+      z-index: 1;
     }
 
     .meta-box {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
       border-radius: 18px;
       padding: 14px;
       text-align: center;
     }
-
-    .meta-box .label {
-      color: #94a3b8;
-      font-size: 12px;
-      margin-bottom: 6px;
-    }
-
-    .meta-box .value {
-      font-size: 18px;
-      font-weight: 800;
-    }
+    .meta-box .label { color: #94a3b8; font-size: 12px; margin-bottom: 6px; }
+    .meta-box .value { font-size: 18px; font-weight: 800; }
 
     .footer-note {
       margin-top: 18px;
       color: #cbd5e1;
       font-size: 13px;
       line-height: 1.8;
-      z-index: 1;
       position: relative;
-    }
-
-    .empty-state {
-      height: 100%;
-      min-height: 500px;
-      border-radius: 34px;
-      border: 1px dashed rgba(100,116,139,.35);
-      background: rgba(255,255,255,.5);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      color: #475569;
-      padding: 30px;
-    }
-
-    .empty-state strong {
-      display: block;
-      font-size: 22px;
-      color: var(--text);
-      margin-bottom: 10px;
+      z-index: 1;
     }
 
     .toast {
       position: fixed;
-      left: 20px;
-      bottom: 20px;
-      background: rgba(15, 23, 42, 0.95);
+      left: 18px;
+      bottom: 18px;
+      background: rgba(15,23,42,.96);
       color: #fff;
       padding: 12px 16px;
       border-radius: 14px;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.25);
+      box-shadow: 0 12px 30px rgba(15,23,42,.24);
       font-size: 14px;
       opacity: 0;
       transform: translateY(10px);
       pointer-events: none;
-      transition: 0.25s ease;
+      transition: .25s ease;
       z-index: 999;
     }
+    .toast.show { opacity: 1; transform: translateY(0); }
 
-    .toast.show {
-      opacity: 1;
-      transform: translateY(0);
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; }
+      .empty-state, .result-card { min-height: 440px; }
     }
 
-    @media (max-width: 980px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-      .result-card, .empty-state {
-        min-height: 420px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .page {
-        width: min(100% - 18px, 1180px);
-        padding-top: 10px;
-      }
-      .panel-inner {
-        padding: 20px;
-      }
-      .controls {
-        grid-template-columns: 1fr;
-      }
-      .meta-grid {
-        grid-template-columns: 1fr;
-      }
-      .btn {
-        width: 100%;
-      }
-      .result-card, .empty-state {
-        border-radius: 26px;
-      }
+    @media (max-width: 720px) {
+      .page { width: min(100% - 14px, 1180px); padding-top: 10px; }
+      .panel-inner { padding: 18px; }
+      .controls { grid-template-columns: 1fr; }
+      .meta-grid { grid-template-columns: 1fr; }
+      .btn { min-width: 0; width: 100%; }
+      .result-card, .empty-state { border-radius: 26px; }
+      .question-text { min-height: auto; }
     }
   </style>
 </head>
@@ -417,48 +322,35 @@
       <article class="panel">
         <div class="panel-inner">
           <div class="brand">
+            <div class="brand-badge">✦</div>
             <div>
-              <h1>لعبة الشهر واليوم</h1>
+              <h1>سؤال من تاريخك</h1>
               <p class="subtitle">
-                أدخل الشهر واليوم، ثم سيظهر لك سؤال مناسب داخل كرت أنيق.
-                مناسب للتمهيد، كسر الجليد، أو فتح نقاش داخل جلسة تدريبية أو فريق عمل.
+                اختر الشهر واليوم، ثم سيظهر لك سؤال مناسب داخل كرت أنيق.
+                الصفحة بسيطة وسريعة ومناسبة للاستخدام المباشر.
               </p>
             </div>
           </div>
 
           <div class="controls">
             <div class="field">
-              <label for="month">اختر الشهر</label>
-              <div class="input-wrap">
-                <select id="month"></select>
-              </div>
+              <label for="month">الشهر</label>
+              <select id="month" aria-label="اختر الشهر"></select>
             </div>
-
             <div class="field">
-              <label for="day">اختر اليوم</label>
-              <div class="input-wrap">
-                <select id="day"></select>
-              </div>
+              <label for="day">اليوم</label>
+              <select id="day" aria-label="اختر اليوم"></select>
             </div>
-          </div>
-
-          <div class="row">
-            <label class="checkbox" for="leapYear">
-              <input id="leapYear" type="checkbox" />
-              <span>السنة كبيسة (فبراير = 29 يومًا)</span>
-            </label>
           </div>
 
           <div class="actions">
             <button class="btn btn-primary" id="showBtn">أظهر السؤال</button>
-            <button class="btn btn-secondary" id="randomBtn">سؤال عشوائي</button>
             <button class="btn btn-secondary" id="copyBtn">نسخ السؤال</button>
             <button class="btn btn-secondary" id="resetBtn">إعادة ضبط</button>
           </div>
 
           <div class="hint">
-            الشهور التي لها 30 يومًا تتوقف عند يوم 30، وفبراير يتغير إلى 29 عند تفعيل السنة الكبيسة.
-            بعد الاختيار، سيظهر السؤال بصياغة جاهزة للاستخدام المباشر.
+            الشهور التي لها 30 يومًا تتوقف عند يوم 30، وفبراير يتغير تلقائيًا إلى 29 عند تفعيل السنة الكبيسة.
           </div>
         </div>
       </article>
@@ -474,7 +366,7 @@
     </section>
   </main>
 
-  <div id="toast" class="toast">تم النسخ</div>
+  <div id="toast" class="toast">تم التنفيذ</div>
 
   <script>
     const months = [
@@ -528,19 +420,23 @@
 
     const monthSelect = document.getElementById('month');
     const daySelect = document.getElementById('day');
-    const leapYear = document.getElementById('leapYear');
     const output = document.getElementById('output');
     const toast = document.getElementById('toast');
     const showBtn = document.getElementById('showBtn');
-    const randomBtn = document.getElementById('randomBtn');
     const copyBtn = document.getElementById('copyBtn');
     const resetBtn = document.getElementById('resetBtn');
+
+    const state = {
+      monthKey: 'january',
+      day: 1,
+      currentQuestion: null
+    };
 
     function showToast(message) {
       toast.textContent = message;
       toast.classList.add('show');
       clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
+      window.__toastTimer = setTimeout(() => toast.classList.remove('show'), 1500);
     }
 
     function getMonthData(key) {
@@ -549,8 +445,7 @@
 
     function getDaysInMonth(monthKey) {
       const month = getMonthData(monthKey);
-      if (month.key === 'february' && leapYear.checked) return 29;
-      return month.days;
+      return month.key === 'february' && document.getElementById('leapYear')?.checked ? 29 : month.days;
     }
 
     function populateMonths() {
@@ -565,17 +460,17 @@
     }
 
     function populateDays() {
-      const monthKey = monthSelect.value;
-      const maxDays = getDaysInMonth(monthKey);
-      const current = Number(daySelect.value || 1);
+      const maxDays = getDaysInMonth(state.monthKey);
+      const current = Math.min(Math.max(state.day || 1, 1), maxDays);
       daySelect.innerHTML = '';
       for (let i = 1; i <= maxDays; i++) {
         const option = document.createElement('option');
         option.value = i;
         option.textContent = i;
-        if (i === Math.min(current, maxDays)) option.selected = true;
+        if (i === current) option.selected = true;
         daySelect.appendChild(option);
       }
+      state.day = current;
     }
 
     function buildQuestion(monthKey, day) {
@@ -593,16 +488,18 @@
 
     function renderQuestion(monthKey, day) {
       const q = buildQuestion(monthKey, day);
-      const html = `
-        <div class="result-card">
-          <div class="result-top">
-            <div class="chip-row">
-              <div class="chip">📅 ${q.month.ar}</div>
-              <div class="chip"># اليوم ${q.day}</div>
-              <div class="chip">✨ ${q.month.theme}</div>
-              <div class="chip">🗓️ ${q.maxDays} يوم</div>
-            </div>
+      state.currentQuestion = q;
 
+      output.className = '';
+      output.innerHTML = `
+        <div class="result-card" aria-live="polite">
+          <div class="chip-row">
+            <div class="chip">📅 ${q.month.ar}</div>
+            <div class="chip"># اليوم ${q.day}</div>
+            <div class="chip">✨ ${q.month.theme}</div>
+          </div>
+
+          <div>
             <h2 class="question-title">سؤال اليوم</h2>
             <p class="question-text">${q.text}</p>
 
@@ -616,61 +513,42 @@
                 <div class="value">${q.day}</div>
               </div>
               <div class="meta-box">
-                <div class="label">عدد الأيام</div>
+                <div class="label">الأيام</div>
                 <div class="value">${q.maxDays}</div>
               </div>
             </div>
           </div>
 
-          <div class="result-bottom">
-            <div class="footer-note">
-              يمكنك استخدام هذا السؤال كتمهيد للنقاش، أو ك لعبة كسر الجليد، أو كمدخل لاكتشاف طريقة التفكير والقيادة.
-            </div>
-          </div>
+          <div class="footer-note">يمكنك استخدامه كمدخل للنقاش أو ك لعبة بسيطة لاكتشاف طريقة التفكير.</div>
         </div>
       `;
-      output.className = '';
-      output.innerHTML = html;
+
+      showToast('تم عرض السؤال');
       return q;
     }
 
-    function currentSelection() {
-      return {
-        monthKey: monthSelect.value,
-        day: Number(daySelect.value || 1)
-      };
-    }
-
     function showCurrentQuestion() {
-      const { monthKey, day } = currentSelection();
-      return renderQuestion(monthKey, day);
-    }
-
-    function randomQuestion() {
-      const month = months[Math.floor(Math.random() * months.length)];
-      monthSelect.value = month.key;
-      populateDays();
-      const maxDays = getDaysInMonth(month.key);
-      const randomDay = Math.floor(Math.random() * maxDays) + 1;
-      daySelect.value = randomDay;
-      renderQuestion(month.key, randomDay);
-      showToast('تم اختيار سؤال عشوائي');
+      state.monthKey = monthSelect.value;
+      state.day = Number(daySelect.value || 1);
+      return renderQuestion(state.monthKey, state.day);
     }
 
     async function copyCurrentQuestion() {
-      const q = showCurrentQuestion();
+      const q = state.currentQuestion || showCurrentQuestion();
       const text = `${q.month.ar} - يوم ${q.day}\n${q.text}`;
       try {
         await navigator.clipboard.writeText(text);
         showToast('تم نسخ السؤال');
-      } catch (err) {
-        showToast('تعذر النسخ في هذا المتصفح');
+      } catch {
+        showToast('تعذر النسخ');
       }
     }
 
     function resetAll() {
+      state.monthKey = 'january';
+      state.day = 1;
+      state.currentQuestion = null;
       monthSelect.value = 'january';
-      leapYear.checked = false;
       populateDays();
       daySelect.value = 1;
       output.className = 'empty-state';
@@ -683,32 +561,26 @@
       showToast('تمت إعادة الضبط');
     }
 
-    // events
     monthSelect.addEventListener('change', () => {
+      state.monthKey = monthSelect.value;
+      state.day = 1;
       populateDays();
-      showCurrentQuestion();
     });
 
-    daySelect.addEventListener('change', showCurrentQuestion);
-
-    leapYear.addEventListener('change', () => {
-      const prevMonth = monthSelect.value;
-      const prevDay = Number(daySelect.value || 1);
-      populateDays();
-      const maxDays = getDaysInMonth(prevMonth);
-      daySelect.value = Math.min(prevDay, maxDays);
-      showCurrentQuestion();
+    daySelect.addEventListener('change', () => {
+      state.day = Number(daySelect.value || 1);
     });
 
     showBtn.addEventListener('click', showCurrentQuestion);
-    randomBtn.addEventListener('click', randomQuestion);
     copyBtn.addEventListener('click', copyCurrentQuestion);
     resetBtn.addEventListener('click', resetAll);
 
-    // init
-    populateMonths();
-    populateDays();
-    showCurrentQuestion();
+    function init() {
+      populateMonths();
+      populateDays();
+    }
+
+    init();
   </script>
 </body>
 </html>
